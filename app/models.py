@@ -1,21 +1,19 @@
 from app import db
 
-class User(db.Model):
+class Staff(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
-	firstname = db.Column(db.String(120), index=True, unique=True)
-	lastname = db.Column(db.String(120), index=True, unique=True)
-	email = db.Column(db.String(120), index=True, unique=True)
-	reason = db.Column(db.String(240), index=True)
+	firstname = db.Column(db.String(142), nullable=False)
+	lastname = db.Column(db.String(142), nullable=False)
+	role = db.Column(db.String(16))
+	slack = db.Column(db.String(16))
+	email = db.Column(db.String(142))
+
+	def __init__(self, firstname, lastname, role, slack, email):
+		self.firstname = firstname
+		self.lastname = lastname
+		self.role = role
+		self.slack = slack
+		self.email = email
 
 	def __repr__(self):
 		return '<User %r>' % (self.firstname)
-
-# Example of another db model
-class Post(db.Model):
-    id = db.Column(db.Integer, primary_key = True)
-    body = db.Column(db.String(140))
-    timestamp = db.Column(db.DateTime)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-
-    def __repr__(self):
-        return '<Post %r>' % (self.body)
