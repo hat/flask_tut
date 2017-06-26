@@ -1,6 +1,6 @@
 from flask import render_template, flash, redirect, url_for
 from app import app
-from .forms import StaffForm
+from .forms import StaffForm, GuestsForm
 import os # favicon
 from flask import send_from_directory # favicon
 from flask import Flask, request # staff
@@ -25,13 +25,13 @@ def staff():
 		return redirect(url_for('staff'))
 	return render_template('staff.html', title='Staff', form=form, staff=staff)
 
-# @app.route('/guests', methods=['GET', 'POST'])
-# def guests():
-# 	form = GuestsForm(request.form)
-# 	guest = models.Guests.query.filter().all()
-# 	if request.method == 'POST' and form.validate():
-# 		# Fill in Post
-# 	return render_template('guest.html', title='Guests', form=form, guests=guests)
+@app.route('/guests', methods=['GET', 'POST'])
+def guests():
+	form = GuestsForm(request.form)
+	guests = models.Guests.query.filter().all()
+	# if request.method == 'POST' and form.validate():
+		# Fill in Post
+	return render_template('guests.html', title='Guests', form=form, guests=guests)
 
 # Sets up favicon
 @app.route('/favicon.png')

@@ -19,9 +19,11 @@ class Staff(db.Model):
 	def __repr__(self):
 		return '<User %r>' % (self.firstname)
 
-# class Guests(db.model):
-# 	id = db.Column(db.Integer, primary_key=True)
-# 	firstname = db.Column(db.String(142), nullable=False)
-# 	lastname = db.Column(db.String(142), nullable=False)
-# 	timein = db.Column(db.DateTime())
-# 	reason = db.Column(db.String(1764))
+class Guests(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	firstname = db.Column(db.String(142), nullable=False)
+	lastname = db.Column(db.String(142), nullable=False)
+	timein = db.Column(db.DateTime, nullable=False)
+	timeout = db.Column(db.DateTime)
+	reason = db.Column(db.String(255))
+	photo = db.Column(db.String(255))
