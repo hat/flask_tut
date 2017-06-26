@@ -12,7 +12,7 @@
     {% if title %}
     <title>{{ title }} - Cerberus</title>
     {% else %}
-    <title>Welcome to Cerberus</title>
+    <title>Cerberus</title>
     {% endif %}
 
     <!-- App CSS -->
@@ -23,6 +23,8 @@
     <link href="static/css/pages.css" rel="stylesheet" type="text/css" />
     <link href="static/css/menu.css" rel="stylesheet" type="text/css" />
     <link href="static/css/responsive.css" rel="stylesheet" type="text/css" />
+
+    {% block css %}{% endblock %}
 
     <!-- HTML5 Shiv and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -80,15 +82,12 @@
                 <div id="sidebar-menu">
                     <ul>
                       <li class="text-muted menu-title">Navigation</li>
-
                         <li>
-                            <a href="/" class="waves-effect"><span> Dashboard </span> </a>
+                            <a href="/staff" class="waves-effect"><span> &emsp;Staff </span> </a>
                         </li>
-
                         <li>
-                            <a href="/staff" class="waves-effect"><span> Staff </span> </a>
+                            <a href="/guests" class="waves-effect"><span>&emsp;Guests </span> </a>
                         </li>
-
                     </ul>
                     <div class="clearfix"></div>
                 </div>
