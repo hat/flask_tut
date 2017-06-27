@@ -22,7 +22,7 @@
 						<th>Last Name</th>
 						<th>Time In</th>
 						<th>Time Out</th>
-						<th>Email</th>
+						<th>Reason</th>
 					</tr>
 					</thead>
 
@@ -34,7 +34,6 @@
 							<td>{{g.timein}}</td>
 							<td>{{g.timeout}}</td>
 							<td>{{g.reason}}</td>
-							<td>{{g.photo}}</td>
 						</tr>
 					{% endfor %}
 					</tbody>
@@ -48,12 +47,10 @@
 							<h4 class="m-b-30 m-t-0 header-title"><b>New Guest</b></h4>
 								<form class="form-group" method=post>
 									  <dl>
-									    {{ render_field(form.firstname) }}
-									    {{ render_field(form.lastname) }}
-									    {{ render_field(form.timein) }}
-									    {{ render_field(form.timeout) }}
-									    {{ render_field(form.reason) }}
-									    {{ render_field(form.photo) }}
+									  	<input type="text" id="firstname" name="firstname">
+									  	<input type="text" id="lastname" name="lastname">
+									    <input type="datetime-local" id="timein" name="timein">
+									    <input type="text" id="reason" name="reason">
 									  </dl>
 								  <p><input type=submit value=Add></p>
 								</form>

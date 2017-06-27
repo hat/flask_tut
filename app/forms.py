@@ -1,6 +1,7 @@
 from flask_wtf import Form
-from wtforms import Form, BooleanField, StringField, PasswordField, DateField, validators
+from wtforms import Form, BooleanField, StringField, PasswordField, DateField, DateTimeField, validators
 from wtforms.validators import DataRequired
+from datetime import datetime
 
 class StaffForm(Form):
 	firstname = StringField('firstname', [validators.Length(min=1, max=142)])
@@ -12,7 +13,7 @@ class StaffForm(Form):
 class GuestsForm(Form):
 	firstname = StringField('firstname', [validators.Length(min=1, max=142)])
 	lastname = StringField('lastname', [validators.Length(min=1, max=142)])
-	timein = DateField('timein', format='%y-%m-%d')
-	timeout = DateField('timeout', format='%y-%m-%d')
+	timein = DateTimeField('timein', format='%Y-%m-%d %H:%M:%S', default=datetime.now(), validators=[validators.DataRequired()])
+	timeout = DateTimeField('timeout', format='%Y-%m-%d')
 	reason = StringField('reason', [validators.Length(min=1, max=255)])
 	photo = StringField('photo', [validators.Length(min=1, max=255)])

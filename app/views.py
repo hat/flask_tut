@@ -4,8 +4,9 @@ from .forms import StaffForm, GuestsForm
 import os # favicon
 from flask import send_from_directory # favicon
 from flask import Flask, request # staff
-from .models import Staff # staff
+from .models import Staff, Guests # staff, guests
 from app import db, models # staff
+from datetime import datetime # guests
 
 @app.route('/')
 @app.route('/index')
@@ -27,11 +28,18 @@ def staff():
 
 @app.route('/guests', methods=['GET', 'POST'])
 def guests():
-	form = GuestsForm(request.form)
 	guests = models.Guests.query.filter().all()
-	# if request.method == 'POST' and form.validate():
-		# Fill in Post
-	return render_template('guests.html', title='Guests', form=form, guests=guests)
+	if request.method == 'POST':
+		guest = Guests()
+		guest.firstname = request.form.get('firstname')
+		guest.lastname = request.form.get('lastname')
+		guest.timein = datetime.now()
+		guest.reason = request.form.get('reason')
+		db.session.add(guest)
+		db.session.commit()
+		flash('Guest added')
+		return redirect(url_for('guests'))
+	return render_template('guests.html', title='Guests', guests=guests)
 
 # Sets up favicon
 @app.route('/favicon.png')
