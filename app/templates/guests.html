@@ -8,7 +8,6 @@
 	<link href="static/plugins/datatables/scroller.bootstrap.min.css" rel="stylesheet" type="text/css" />
 {% endblock %}
 {% block content %}
-	{% from "_formhelpers.html" import render_field %}
 		<div class="row">
 			<div class="col-sm-12">
 
@@ -23,6 +22,7 @@
 						<th>Time In</th>
 						<th>Time Out</th>
 						<th>Reason</th>
+						<th>Time Out</th>
 					</tr>
 					</thead>
 
@@ -31,9 +31,17 @@
 						<tr>
 							<td>{{g.firstname}}</td>
 							<td>{{g.lastname}}</td>
-							<td>{{g.timein}}</td>
-							<td>{{g.timeout}}</td>
+							<td>{{g.timein.strftime("%Y-%m-%d %H:%M")}}</td>
+							<td>{{g.timeout.strftime("%Y-%m-%d %H:%M")}}</td>
 							<td>{{g.reason}}</td>
+							<td>
+							<form action="{{url_for('guests_timeout', guest_id=g.id)}}" method="POST">
+								<input type="submit" name="guests_timeout" value="guests_timeout">
+							</form>
+							<!-- <form action="{{url_for('guests_delete', guest_id=g.id)}}" method="POST">
+								<input type="submit" name="delete_guest" value="delete_guest">
+							</form> -->
+							</td>
 						</tr>
 					{% endfor %}
 					</tbody>
@@ -47,10 +55,10 @@
 							<h4 class="m-b-30 m-t-0 header-title"><b>New Guest</b></h4>
 								<form class="form-group" method=post>
 									  <dl>
-									  	<input type="text" id="firstname" name="firstname">
-									  	<input type="text" id="lastname" name="lastname">
-									    <input type="datetime-local" id="timein" name="timein">
-									    <input type="text" id="reason" name="reason">
+									  	<input type="text" id="firstname" name="firstname" placeholder="Firstname">
+									  	<input type="text" id="lastname" name="lastname" placeholder="Lastname">
+									    <input type="datetime-local" id="timein" name="timein" value="{{date}}">
+									    <input type="text" id="reason" name="reason" placeholder="reason">
 									  </dl>
 								  <p><input type=submit value=Add></p>
 								</form>

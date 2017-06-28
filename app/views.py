@@ -39,7 +39,22 @@ def guests():
 		db.session.commit()
 		flash('Guest added')
 		return redirect(url_for('guests'))
-	return render_template('guests.html', title='Guests', guests=guests)
+	return render_template('guests.html', date=datetime.now().isoformat(), title='Guests', guests=guests)
+
+@app.route('/guests_timeout/<int:guest_id>', methods=['GET', 'POST'])
+def guests_timeout(guest_id):
+	if request.method == 'POST':
+		Guests.query.filter_by(id=guest_id).update(dict(timeout=datetime.now()))
+		db.session.commit()
+	return redirect(url_for('guests'))
+
+@app.route('/guests_delete/<int:guest_id>', methods=['GET', 'POST'])
+def guests_delete(guest_id):
+	if request.method == 'POST':
+		Guests.query.filter_by(id=guest_id).delete()
+		db.session.commit()
+	return redirect(url_for('guests'))
+
 
 # Sets up favicon
 @app.route('/favicon.png')
