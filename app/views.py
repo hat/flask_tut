@@ -1,6 +1,5 @@
 from flask import render_template, flash, redirect, url_for
 from app import app
-from .forms import StaffForm, GuestsForm
 import os # favicon
 from flask import send_from_directory # favicon
 from flask import Flask, request # staff
