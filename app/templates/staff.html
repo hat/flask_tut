@@ -1,11 +1,7 @@
 {% extends "base.html" %}
 {% block css %}
-	<!-- DataTables -->
-	<link href="static/plugins/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
-	<link href="static/plugins/datatables/buttons.bootstrap.min.css" rel="stylesheet" type="text/css" />
-	<link href="static/plugins/datatables/fixedHeader.bootstrap.min.css" rel="stylesheet" type="text/css" />
-	<link href="static/plugins/datatables/responsive.bootstrap.min.css" rel="stylesheet" type="text/css" />
-	<link href="static/plugins/datatables/scroller.bootstrap.min.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" type="text/css" href="css/pages/datatables.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.15/datatables.min.css"/>
 {% endblock %}
 {% block content %}
 	{% from "_formhelpers.html" import render_field %}
@@ -27,71 +23,49 @@
 					</thead>
 
 					<tbody>
-					{% for s in staff %}
-						<tr>
-							<td>{{s.firstname}}</td>
-							<td>{{s.lastname}}</td>
-							<td>{{s.role}}</td>
-							<td>{{s.slack}}</td>
-							<td>{{s.email}}</td>
-						</tr>
-					{% endfor %}
 					</tbody>
 					</table>
 				</div>
 
 
-				<div class="card-box">
-					<div class="row">
-						<div class="col-lg-6">
-							<h4 class="m-b-30 m-t-0 header-title"><b>Add New Staff</b></h4>
-								<form class="form-group" method=post>
+				<div class="panel ">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            Enter Staff
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form class="form-horizontal form-validation" role="form" method=post>
 									  <dl>
-									    {{ render_field(form.firstname) }}
-									    {{ render_field(form.lastname) }}
-									    {{ render_field(form.role) }}
-									    {{ render_field(form.slack) }}
-									    {{ render_field(form.email) }}
+									  		<input type="text" id="firstname" name="firstname" placeholder="Firstname">
+									  		<input type="text" id="lastname" name="lastname" placeholder="Lastname">
+									  		<select id="role" name="role">
+									  			<option value="Staff">Staff</option>
+									  			<option value="Bocalian">Bocalian</option>
+									  			<option value="RA">RA</option>
+									  		</select>
+									  		<input type="text" id="slack" name="slack" placeholder="@slack">
+									  		<input type="email" id="email" name="email" placeholder="email@42.us.org">
 									  </dl>
 								  <p><input type=submit value=Add></p>
-								</form>
-						</div><!-- end col -->
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-					</div><!-- end row -->
-				</div>
 			</div><!-- end col -->
 		</div>
 {% endblock %}
 
 {% block script %}
-	<!-- XEditable Plugin -->
-	<script src="static/plugins/moment/moment.js"></script>
-	<script type="text/javascript" src="static/pages/jquery.xeditable.js"></script>
-
-	<!-- Datatables-->
-	<script src="static/plugins/datatables/jquery.dataTables.min.js"></script>
-	<script src="static/plugins/datatables/dataTables.bootstrap.js"></script>
-	<script src="static/plugins/datatables/dataTables.buttons.min.js"></script>
-	<script src="static/plugins/datatables/buttons.bootstrap.min.js"></script>
-	<script src="static/plugins/datatables/jszip.min.js"></script>
-	<script src="static/plugins/datatables/pdfmake.min.js"></script>
-	<script src="static/plugins/datatables/vfs_fonts.js"></script>
-	<script src="static/plugins/datatables/buttons.html5.min.js"></script>
-	<script src="static/plugins/datatables/buttons.print.min.js"></script>
-	<script src="static/plugins/datatables/dataTables.fixedHeader.min.js"></script>
-	<script src="static/plugins/datatables/dataTables.keyTable.min.js"></script>
-	<script src="static/plugins/datatables/dataTables.responsive.min.js"></script>
-	<script src="static/plugins/datatables/responsive.bootstrap.min.js"></script>
-	<script src="static/plugins/datatables/dataTables.scroller.min.js"></script>
-
-	<script type="text/javascript">
-		$(document).ready(function() {
-		    $('#datatable').dataTable();
-		    $('#datatable-keytable').DataTable( { keys: true } );
-		    $('#datatable-responsive').DataTable();
-		    $('#datatable-scroller').DataTable( { ajax: "static/plugins/datatables/json/scroller-demo.json", deferRender: true, scrollY: 380, scrollCollapse: true, scroller: true } );
-		    var table = $('#datatable-fixed-header').DataTable( { fixedHeader: true } );
-		} );
-		TableManageButtons.init();
+	<script type="text/javascript" src="static/vendors/datatables/js/jquery.dataTables.min.js"></script>
+	<script>
+		var table = $('#datatable').DataTable();
+		{% for s in staff %}
+			table.row.add(["{{s.firstname}}", "{{s.lastname}}", "{{s.role}}", "{{s.slack}}", "{{s.email}}"]).draw();
+		{% endfor %}
 	</script>
 {% endblock %}

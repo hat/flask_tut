@@ -15,16 +15,19 @@ def index():
 
 @app.route('/staff', methods=['GET', 'POST'])
 def staff():
-	form = StaffForm(request.form)
 	staff = models.Staff.query.filter().all()
-	if request.method == 'POST' and form.validate():
-		staff = Staff(form.firstname.data, form.lastname.data, form.role.data,
-					form.slack.data, form.email.data)
+	if request.method == 'POST':
+		staff = Staff()
+		staff.firstname = request.form.get('firstname').capitalize()
+		staff.lastname = request.form.get('lastname').capitalize()
+		staff.role = request.form.get('role').capitalize()
+		staff.slack = request.form.get('slack')
+		staff.email = request.form.get('email')
 		db.session.add(staff)
 		db.session.commit()
 		flash('Staff member added')
 		return redirect(url_for('staff'))
-	return render_template('staff.html', title='Staff', form=form, staff=staff)
+	return render_template('staff.html', title='Staff', staff=staff)
 
 @app.route('/guests', methods=['GET', 'POST'])
 def guests():

@@ -1,6 +1,3 @@
-from flask_wtf import Form
-from wtforms import Form, BooleanField, StringField, PasswordField, DateField, DateTimeField, validators
-from wtforms.validators import DataRequired
 from datetime import datetime
 
 class StaffForm(Form):
