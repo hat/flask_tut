@@ -21,11 +21,6 @@ class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_ECHO = False
     SQLALCHEMY_DATABASE_URI = 'postgres://%s:%s@%s/%s' % (DATABASE_USER, DATABASE_PASSWORD, DATABASE_HOST, DATABASE_NAME)
-    SQLALCHEMY_BINDS = {
-        'database': 'postgres://%s:%s@%s/database' % (DATABASE_USER, DATABASE_PASSWORD, DATABASE_HOST),
-        'main': 'postgres://%s:%s@%s/main' % (DATABASE_USER, DATABASE_PASSWORD, DATABASE_HOST),
-        'stats': 'postgres://%s:%s@bigbrother-sql.42.us.org/stats' % ('stats', 'fdASmn301OOKdmnv32c563VF')
-    }
 
 class ProductionConfig(Config):
     DEBUG = False
